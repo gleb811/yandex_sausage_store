@@ -1,5 +1,8 @@
-include:
-    - local: backend/.gitlab-ci.yml
+default:
+  after_script:
+    - echo "Job complete."
+#include:
+#    - local: backend/.gitlab-ci.yml
 
 
  #   - 'frontend/.gitlab-ci.yml'
