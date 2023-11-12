@@ -11,9 +11,10 @@ build-backend-code-job:
     - cd backend
     - mvn package
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
+    - ls -all build.env
   artifacts:
     reports:
-      dotenv: build.env
+      dotenv: backend/build.env
     paths:
       - backend/target/sausage-store-0.0.1-SNAPSHOT.jar
     expire_in: 1 day
