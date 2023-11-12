@@ -11,7 +11,6 @@ build-backend-code-job:
     - cd backend
     - mvn package
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
-    - ls -all build.env
   artifacts:
     reports:
       dotenv: backend/build.env
@@ -30,7 +29,7 @@ telegram-notification-backend:
     changes:
     - backend/*
     variables:
-    - $CI_COMMIT_MESSAGE =~ /send notofication/
+    - $CI_COMMIT_MESSAGE =~ /send notification/
   script:
     - ls backend/target/*
     - 'curl -X POST -H "Content-type: application/json" --data "{\"chat_id\": \"-1002134018008\", \"text\": \"${TEXT}\"}" ${TLGRM}'
