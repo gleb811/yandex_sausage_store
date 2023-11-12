@@ -1,4 +1,6 @@
 include:
     - local: backend/.gitlab-ci.yml
+stages:
+    -build
 
  #   - 'frontend/.gitlab-ci.yml'
