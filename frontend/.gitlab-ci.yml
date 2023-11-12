@@ -12,13 +12,11 @@ build-frontend-code-job:
     - npm install
     - npm run build
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
-    - cd dist
-    - mkdir frontend
   artifacts:
     reports:
       dotenv: frontend/build.env
     paths:
-      - frontend/dist/frontend/sausage-store-0.0.1-SNAPSHOT.jar
+      - frontend/dist/frontend
     expire_in: 1 day
 
 
