@@ -19,7 +19,7 @@ build-backend-code-job:
 
 telegram-notification-backend:
   variables:
-      TEXT: "Глеб Федотов собрал backend ${CI_PROJECT_URL}/-/jobs/${PREV_JOB_ID}/artifacts/download"
+      TEXT: "Глеб Федотов собрал backend ${CI_PROJECT_URL}/-/jobs/${CI_JOB_ID}/artifacts/download"
       TLGRM: "https://api.telegram.org/bot5933756043:AAE8JLL5KIzgrNBeTP5e-1bkbJy4YRoeGjs/sendMessage"
   stage: notify
   only:
