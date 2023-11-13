@@ -1,0 +1,39 @@
+stages:
+  - build
+  - notify
+
+build-frontend-code-job:
+  stage: build  
+  only:
+    changes:
+    - frontend/*
+  script:
+    - cd frontend
+    - npm install
+    - npm run build
+    - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
+  artifacts:
+    reports:
+      dotenv: frontend/build.env
+    paths:
+      - frontend/dist/frontend
+    expire_in: 1 day
+
+
+
+telegram-notification-frontend:
+  variables:
+      TEXT: "Глеб Федотов собрал frontend ${CI_PROJECT_URL}/-/jobs/${PREV_JOB_ID}/artifacts/download"
+      TLGRM: "https://api.telegram.org/bot5933756043:AAE8JLL5KIzgrNBeTP5e-1bkbJy4YRoeGjs/sendMessage"
+  stage: notify
+  only:
+    changes:
+    - frontend/*
+    variables:
+    - $CI_COMMIT_MESSAGE =~ /send notification/
+  script:
+    - ls frontend/dist/frontend/*
+    - 'curl -X POST -H "Content-type: application/json" --data "{\"chat_id\": \"-1002134018008\", \"text\": \"${TEXT}\"}" ${TLGRM}'
+  needs:
+    - build-frontend-code-job
+
