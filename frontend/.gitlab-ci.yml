@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - notify
 
 build-frontend-code-job:
@@ -18,6 +19,35 @@ build-frontend-code-job:
     paths:
       - frontend/dist/frontend
     expire_in: 1 day
+
+sonarqube-frontend-sast:
+  stage: test
+  only:
+    changes:
+    - frontend/*  
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0" 
+    SONAR_PROJECT_NAME: "24_ГЛЕБФЕДОТОВ_ФРОНТЭНД"
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - cd frontend
+    - > 
+        sonar-scanner
+        -Dsonar.sources=.
+        -Dsonar.projectName=$SONAR_PROJECT_NAME
+        -Dsonar.host.url=$SONARQUBE_URL
+        -Dsonar.login=$SONAR_LOGIN_FRONTEND
+        -Dsonar.projectKey=$SONAR_PROJECT_KEY_FRONT
+        -Dsonar.qualitygate.wait=true
+  needs:
+    - build-frontend-code-job
 
 
 
