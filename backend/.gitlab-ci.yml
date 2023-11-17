@@ -24,13 +24,17 @@ build-backend-code-job:
       - .m2/
     expire_in: 1 day
 
-include:
-  - template: Security/SAST.gitlab-ci.yml
-    artifacts:
-      paths:
         - backend/build.env
 
- 
+ spotbugs-sast:
+  include:
+  - template: Security/SAST.gitlab-ci.yml
+  variables:
+    COMPILE: "false"
+    SAST_JAVA_VERSION: 11
+#    MAVEN_REPO_PATH: ${CI_PROJECT_DIR}/.m2/repository
+  needs:
+    - build-backend-code-job
 
 sonarqube-backend-sast:
   stage: test
