@@ -28,11 +28,13 @@ build-backend-code-job:
 
 spotbugs-sast:
   stage: test
+  only:
+    - schedules
+  when: on_success
   variables:
     COMPILE: "false"
     SAST_JAVA_VERSION: 11
-needs:
-  - build-backend-code-job
+
 
 
 
