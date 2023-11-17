@@ -27,6 +27,7 @@ build-backend-code-job:
         - backend/build.env
 
 spotbugs-sast:
+  stage: test
   include:
   - template: Security/SAST.gitlab-ci.yml
   variables:
