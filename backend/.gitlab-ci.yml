@@ -26,9 +26,9 @@ build-backend-code-job:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-    rules:
-      - if: '$MAVEN_REPO_PATH == ${CI_PROJECT_DIR}/.m2/repository'
-
+    artifacts:
+      paths:
+        - backend/build.env
 
  
 
