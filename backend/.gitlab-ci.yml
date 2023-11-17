@@ -29,7 +29,7 @@ build-backend-code-job:
 spotbugs-sast:
   stage: test
   rules:
-    - if: '$MAVEN_REPO_PATH == "${CI_PROJECT_DIR}/.m2/repository"'
+    - if: $MAVEN_REPO_PATH == "${CI_PROJECT_DIR}/.m2/repository"
       changes:
         - backend/*/**  
   variables:
