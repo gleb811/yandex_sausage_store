@@ -1,8 +1,8 @@
 include:
     - local: frontend/.gitlab-ci.yml
     - local: backend/.gitlab-ci.yml
-      rules:
-          changes:
-              - backend/*
+#      rules:
+#          changes:
+#              - backend/*
     ##
 
