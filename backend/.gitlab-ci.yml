@@ -2,6 +2,7 @@ include:
   - template: Security/SAST.gitlab-ci.yml
 variables:
   SAST_EXCLUDED_ANALYZERS: "eslint, nodejs-scan, semgrep"
+
 #    rules:
 #          changes:
 #              - backend/**/*
@@ -22,6 +23,8 @@ build-backend-code-job:
   cache:
     paths:
       - ${CI_PROJECT_DIR}/.m2/repository
+  variables:
+    SAST_EXCLUDED_ANALYZERS: ""
   script:
     - cd backend
     - mvn -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository package
