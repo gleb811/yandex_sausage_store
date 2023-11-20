@@ -3,6 +3,6 @@ include:
     - local: backend/.gitlab-ci.yml
       rules:
           changes:
-              - backend/**/*
+              - backend/*
     ##
 
