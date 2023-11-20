@@ -2,7 +2,6 @@ include:
     - local: frontend/.gitlab-ci.yml
     - local: backend/.gitlab-ci.yml
       rules:
-          - if: true
           changes:
               - backend/**/*
 
