@@ -43,6 +43,7 @@ spotbugs-sast:
   rules:
     - changes:
         - backend/*  
+  variables: {}
   variables:
     COMPILE: "false"
     SAST_JAVA_VERSION: 11
