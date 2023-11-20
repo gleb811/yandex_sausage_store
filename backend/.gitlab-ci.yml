@@ -1,5 +1,11 @@
 include:
   - template: Security/SAST.gitlab-ci.yml
+
+workflow:
+  rules:
+    - changes:
+      - backend/*
+      
 stages:
   - build
   - test
