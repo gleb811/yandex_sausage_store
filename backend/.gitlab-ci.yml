@@ -18,7 +18,7 @@ build-backend-code-job:
       - ${CI_PROJECT_DIR}/.m2/repository
   script:
     - cd backend
-    - mvn -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository package
+    - mvn package -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
     - echo "MAVEN_REPO_PATH=${CI_PROJECT_DIR}/.m2/repository" >> build.env
   artifacts:
