@@ -4,7 +4,6 @@ stages:
   - build
   - test
   - notify
-###
 build-backend-code-job:
   stage: build  
   only:
