@@ -12,7 +12,7 @@ build-backend-code-job:
   stage: build  
   only:
     changes:
-    - backend/*
+    - backend/**/*
   cache:
     paths:
       - ${CI_PROJECT_DIR}/.m2/repository
