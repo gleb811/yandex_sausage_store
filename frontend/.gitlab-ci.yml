@@ -2,7 +2,7 @@ stages:
   - build
   - test
   - notify
-###
+
 build-frontend-code-job:
   stage: build  
   only:
