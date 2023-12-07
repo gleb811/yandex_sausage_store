@@ -13,6 +13,7 @@ build-frontend-code-job:
     - npm install
     - npm run build
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
+    - echo ${VERSION}
   artifacts:
     reports:
       dotenv: frontend/build.env
