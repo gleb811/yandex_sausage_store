@@ -14,7 +14,7 @@ build-frontend-code-job:
     - npm run build
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
     - echo ${VERSION}
-    - cd frontend/dist
+    - cd dist
     - tar czvf sausage-store-${VERSION}.tar.gz frontend
   artifacts:
     reports:
