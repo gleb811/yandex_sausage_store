@@ -65,7 +65,7 @@ telegram-notification-frontend:
     variables:
     - $CI_COMMIT_MESSAGE =~ /send notification/
   script:
-    - ls frontend/dist/frontend/*
+    - ls frontend/dist/*
     - 'curl -X POST -H "Content-type: application/json" --data "{\"chat_id\": \"-1002134018008\", \"text\": \"${TEXT}\"}" ${TLGRM}'
   needs:
     - build-frontend-code-job
