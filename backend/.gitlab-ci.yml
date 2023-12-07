@@ -18,7 +18,11 @@ build-backend-code-job:
       - ${CI_PROJECT_DIR}/.m2/repository
   script:
     - cd backend
-    - mvn -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository -Dversion.application=${VERSION} package
+    - >
+        mvn 
+        package
+        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
+        -Dversion.application=${VERSION}
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
     - echo "MAVEN_REPO_PATH=${CI_PROJECT_DIR}/.m2/repository" >> build.env
   artifacts:
@@ -26,7 +30,7 @@ build-backend-code-job:
       dotenv: backend/build.env
     paths:
       - backend/target/sausage-store-${VERSION}.jar
-      - .m2/
+      - ${CI_PROJECT_DIR}/.m2/
     expire_in: 1 day
 
 spotbugs-sast:
