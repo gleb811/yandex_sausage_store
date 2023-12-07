@@ -28,7 +28,7 @@ build-backend-code-job:
     reports:
       dotenv: backend/build.env
     paths:
-      - backend/target/sausage-store-${VERSION}.jar
+      - backend/target/sausage-store-0.0.1.jar
       - ${CI_PROJECT_DIR}/.m2/
     expire_in: 1 day
 
