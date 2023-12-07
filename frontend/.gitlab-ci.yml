@@ -14,11 +14,13 @@ build-frontend-code-job:
     - npm run build
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
     - echo ${VERSION}
+    - cd frontend/dist
+    - tar czvf sausage-store-${VERSION}.tar.gz frontend
   artifacts:
     reports:
       dotenv: frontend/build.env
     paths:
-      - frontend/dist/frontend
+      - frontend/dist/sausage-store-${VERSION}.tar.gz
     expire_in: 1 day
 
 sonarqube-frontend-sast:
