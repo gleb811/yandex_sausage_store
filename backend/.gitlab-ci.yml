@@ -6,6 +6,7 @@ variables:
 
 stages:
   - build
+  - release
   - test
   - notify
 build-backend-code-job:
@@ -32,6 +33,26 @@ build-backend-code-job:
       - backend/target/sausage-store-${VERSION}.jar
       - ${CI_PROJECT_DIR}/.m2/
     expire_in: 1 day
+
+stages:
+  - release
+
+upload-backend-release:
+  stage: release
+  only:
+    changes:
+    - backend/**/*
+  needs:
+    - build-backend-code-job
+  script:
+    - cd backend
+    - >
+        mvn 
+        deploy
+        -DskipTests
+        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
+        -s settings.xml
+        -Dversion.application=${VERSION}
 
 spotbugs-sast:
   stage: test
