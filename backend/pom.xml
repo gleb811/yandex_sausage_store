@@ -15,8 +15,8 @@
     <description>Backend for sausage-store</description>
     <distributionManagement>
        <repository>
-            <id>std-024-07-backend</id>
-            <name>std-024-07-backend</name>
+            <id>sausage-store</id>
+            <name>sausage-store</name>
             <url>${env.NEXUS_REPO_URL}/std-024-07-backend/</url>
        </repository>
     </distributionManagement>
