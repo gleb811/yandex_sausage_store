@@ -7,7 +7,7 @@ build-frontend-code-job:
   stage: build  
   only:
     changes:
-    - frontend/*
+    - frontend/**/*
   script:
     - cd frontend
     - npm install
@@ -27,7 +27,7 @@ sonarqube-frontend-sast:
   stage: test
   only:
     changes:
-    - frontend/*  
+    - frontend/**/*  
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
     GIT_DEPTH: "0" 
@@ -61,7 +61,7 @@ telegram-notification-frontend:
   stage: notify
   only:
     changes:
-    - frontend/*
+    - frontend/**/*
     variables:
     - $CI_COMMIT_MESSAGE =~ /send notification/
   script:

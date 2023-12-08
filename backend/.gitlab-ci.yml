@@ -37,7 +37,7 @@ spotbugs-sast:
   stage: test
   rules:
     - changes:
-        - backend/*  
+        - backend/**/*  
   variables:
     COMPILE: "false"
     SAST_JAVA_VERSION: 11
@@ -52,7 +52,7 @@ sonarqube-backend-sast:
   stage: test
   only:
     changes:
-    - backend/*  
+    - backend/**/*  
   variables:
 #    MAVEN_REPO_PATH: $CI_PROJECT_DIR/.m2/repository
     SONAR_PROJECT_NAME: "24_ГЛЕБФЕДОТОВ_БЭКЭНД"
@@ -81,7 +81,7 @@ telegram-notification-backend:
   stage: notify
   only:
     changes:
-    - backend/*
+    - backend/**/*
     variables:
     - $CI_COMMIT_MESSAGE =~ /send notification/
   script:
