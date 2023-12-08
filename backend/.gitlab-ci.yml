@@ -9,6 +9,7 @@ stages:
   - release
   - test
   - notify
+  
 build-backend-code-job:
   stage: build  
   only:
@@ -33,9 +34,6 @@ build-backend-code-job:
       - backend/target/sausage-store-${VERSION}.jar
       - ${CI_PROJECT_DIR}/.m2/
     expire_in: 1 day
-
-stages:
-  - release
 
 upload-backend-release:
   stage: release
