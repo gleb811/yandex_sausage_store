@@ -20,8 +20,10 @@ build-backend-code-job:
     - cd backend
     - >
         mvn 
-        package
+        deploy
+        -DskipTests
         -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
+        -s settings.xml
         -Dversion.application=${VERSION}
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
     - echo "MAVEN_REPO_PATH=${CI_PROJECT_DIR}/.m2/repository" >> build.env
