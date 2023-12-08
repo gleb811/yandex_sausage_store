@@ -13,6 +13,14 @@
     <version>${VERSION}</version>
     <name>sausage-store</name>
     <description>Backend for sausage-store</description>
+    <distributionManagement>
+       <repository>
+            <id>std-024-07-backend</id>
+            <name>std-024-07-backend</name>
+            <url>${env.NEXUS_REPO_URL}/std-024-07-backend/</url>
+       </repository>
+    </distributionManagement>
+  
     <properties>
         <java.version>16</java.version>
         <sonar.projectKey>test_manual</sonar.projectKey>
