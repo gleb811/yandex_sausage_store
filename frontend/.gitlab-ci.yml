@@ -9,6 +9,9 @@ build-frontend-code-job:
   only:
     changes:
     - frontend/**/*
+  cache:
+    paths:
+      - .npm/ # для хранения зависимостей сборки фронтенда
   script:
     - cd frontend
     - npm install
