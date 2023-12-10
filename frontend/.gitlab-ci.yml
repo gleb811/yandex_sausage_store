@@ -33,7 +33,6 @@ upload-frontend-release:
     - build-frontend-code-job
   script:
     - cd frontend/dist
-    - tar czvf sausage-store-${VERSION}.tar.gz frontend
     - >
         curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
         --upload-file sausage-store-${VERSION}.tar.gz
