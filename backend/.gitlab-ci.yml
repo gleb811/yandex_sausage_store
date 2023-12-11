@@ -105,6 +105,7 @@ deploy:
     - ssh-keyscan std-024-07.praktikum-services.tech
   needs:
     - build-backend-code-job
+###
 
 telegram-notification-backend:
   variables:
