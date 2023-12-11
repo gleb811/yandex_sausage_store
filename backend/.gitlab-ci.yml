@@ -110,7 +110,7 @@ deploy:
     - chmod 644 ~/.ssh/known_hosts
     - more ~/.ssh/known_hosts
   script:
-    - ssh-keyscan ${DEV_HOST}
+    - ssh ${DEV_USER}@${DEV_HOST} "id" 
   needs:
     - build-backend-code-job
 
