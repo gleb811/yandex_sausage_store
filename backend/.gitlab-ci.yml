@@ -97,6 +97,10 @@ sonarqube-backend-sast:
 
 deploy:
   stage: deploy
+  before_script:
+    #устанавливаем ssh-agent для удобства аутентификации по ssh
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
   script:
     - ssh-keyscan std-024-07.praktikum-services.tech
   needs:
