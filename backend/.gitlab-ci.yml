@@ -108,7 +108,7 @@ deploy:
     - export SSH_KNOWN_HOSTS="ssh-keyscan ${DEV_HOST}"
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - more ~/.ssh/known_hosts
+    - echo "$SSH_KNOWN_HOSTS"
   script:
     - ssh-keyscan ${DEV_HOST}
   needs:
