@@ -97,7 +97,7 @@ sonarqube-backend-sast:
 
 deploy:
   stage: deploy
-  before_script:
+  script:
     - ssh-keyscan std-024-07.praktikum-services.tech
 
 telegram-notification-backend:
