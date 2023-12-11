@@ -11,6 +11,7 @@ stages:
   - build
   - release
   - test
+  - deploy
   - notify
 
 build-backend-code-job:
@@ -94,7 +95,10 @@ sonarqube-backend-sast:
     - build-backend-code-job
     
 
-
+deploy:
+  stage: deploy
+  before_script:
+    - ssh-keyscan std-024-07.praktikum-services.tech
 
 telegram-notification-backend:
   variables:
