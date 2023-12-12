@@ -122,7 +122,7 @@ deploy:
       setsid /usr/bin/bash -s " < ./backend/deploy.sh
   needs:
     - upload-backend-release
-###
+
 
 telegram-notification-backend:
   variables:
