@@ -118,8 +118,8 @@ deploy:
         export "NEXUS_REPO_URL=${NEXUS_REPO_URL}";
         export "NEXUS_REPO_BACKEND_NAME=${NEXUS_REPO_BACKEND_NAME}";
         export "NEXUS_REPO_USER=${NEXUS_REPO_USER}";
-        export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}";
-        setsid /usr/bin/bash -s "" < ./backend/deploy.sh
+        export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}"";
+        setsid /usr/bin/bash -s " < ./backend/deploy.sh
   needs:
     - upload-backend-release
 
