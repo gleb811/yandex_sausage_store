@@ -1,4 +1,4 @@
-#! /usr/bin/zsh
+#! /usr/bin/bash
 #чтобы скрипт завершался, если есть ошибки
 set -xe
 echo "HELLO"
