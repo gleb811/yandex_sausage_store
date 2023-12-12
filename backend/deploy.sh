@@ -1,5 +1,5 @@
 
-
+#! /usr/bin/bash
 #чтобы скрипт завершался, если есть ошибки
 #set -xe
 touch opppppa
