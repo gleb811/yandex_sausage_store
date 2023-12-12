@@ -2,7 +2,6 @@
 #! /usr/bin/bash
 #чтобы скрипт завершался, если есть ошибки
 #set -xe
-touch opppppa
 echo "HELLO"
 echo $VERSION
 #скачиваем артефакт
