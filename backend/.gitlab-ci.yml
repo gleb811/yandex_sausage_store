@@ -110,7 +110,7 @@ deploy:
     - chmod 644 ~/.ssh/known_hosts
   script:
     - ls
-    - ssh ${DEV_USER}@${DEV_HOST} "ls" < ./backend/deploy.sh 
+    - ssh ${DEV_USER}@${DEV_HOST} "ls; setsid /usr/bin/bash -s " < ./backend/deploy.sh 
   needs:
     - upload-backend-release
 ###
