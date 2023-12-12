@@ -1,7 +1,6 @@
-
 #! /usr/bin/bash
 #чтобы скрипт завершался, если есть ошибки
-#set -xe
+set -xe
 echo "HELLO"
 echo $VERSION
 #скачиваем артефакт
