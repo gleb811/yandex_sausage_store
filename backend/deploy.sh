@@ -4,6 +4,7 @@
 #set -xe
 touch opppppa
 echo "HELLO"
+echo $VERSION
 #скачиваем артефакт
 #export VERSION=1.0.955688
 #echo "${NEXUS_REPO_URL}/${NEXUS_REPO_BACKEND_NAME}/com/yandex/practicum/devops/sausage-store/${VERSION}/sausage-store-${VERSION}.jar"
