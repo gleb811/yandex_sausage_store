@@ -108,9 +108,8 @@ deploy:
     - export SSH_KNOWN_HOSTS=`ssh-keyscan ${DEV_HOST}`
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - more ~/.ssh/known_hosts
   script:
-    - ssh ${DEV_USER}@${DEV_HOST} "id" 
+    - ssh ${DEV_USER}@${DEV_HOST} "export "CURRENT_VERSION=${VERSION}"; export "VERSION=${VERSION}"; export "DEV_HOST=${DEV_HOST
   needs:
     - build-backend-code-job
 ###
