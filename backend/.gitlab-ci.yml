@@ -112,7 +112,7 @@ deploy:
     - ls
     - ssh ${DEV_USER}@${DEV_HOST} "export "CURRENT_VERSION=${VERSION}"; export "VERSION=${VERSION}"; export "DEV_HOST=${DEV_HOST}";export "NEXUS_REPO_URL=${NEXUS_REPO_URL}"; export "NEXUS_REPO_BACKEND_NAME=${NEXUS_REPO_BACKEND_NAME}"; export "NEXUS_REPO_USER=${NEXUS_REPO_USER}"; export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}";setsid /usr/bin/bash -s " < ./backend/deploy.sh 
   needs:
-    - build-backend-code-job
+    - upload-backend-release
 ###
 
 telegram-notification-backend:
