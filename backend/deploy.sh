@@ -1,7 +1,7 @@
 
 #! /usr/bin/bash
 #чтобы скрипт завершался, если есть ошибки
-set -xe
+#set -xe
 echo "HELLO"
 #скачиваем артефакт
 #export VERSION=1.0.955688
