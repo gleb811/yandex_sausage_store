@@ -69,6 +69,7 @@ upload-frontend-release:
   needs:
     - sonarqube-frontend-sast
   script:
+    - ls
     - cd frontend/dist
     - >
         curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
