@@ -41,7 +41,7 @@ build-backend-code-job:
     expire_in: 1 day
 
 
-spotbugs-backend-sast:
+spotbugs-sast:
   stage: test
   rules:
     - changes:
@@ -84,7 +84,7 @@ upload-backend-release:
     changes:
     - backend/**/*
   needs:
-    - spotbugs-backend-sast
+    - spotbugs-sast
     - sonarqube-backend-sast
   script:
     - cd backend
