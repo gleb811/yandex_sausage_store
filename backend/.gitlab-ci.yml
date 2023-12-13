@@ -10,8 +10,8 @@ variables:
 ###
 stages:
   - build
-  - release
   - test
+  - release
   - deploy
   - notify
 
@@ -53,8 +53,6 @@ spotbugs-sast:
   needs:
     - build-backend-code-job
 
-
- 
 
 sonarqube-backend-sast:
   stage: test
