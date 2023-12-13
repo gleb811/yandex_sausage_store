@@ -42,7 +42,7 @@ upload-frontend-release:
     changes:
     - frontend/**/*
   needs:
-    - sonarqube-frontend-sast
+    - build-frontend-code-job
   script:
     - ls
     - cd frontend
