@@ -36,25 +36,6 @@ build-frontend-code-job:
     expire_in: 1 day
 
 
-upload-frontend-release:
-  stage: release
-  only:
-    changes:
-    - frontend/**/*
-  needs:
-    - build-frontend-code-job
-    - sonarqube-frontend-sast
-  script:
-    - ls
-    - cd frontend
-    - ls
-    - cd dist
-    - >
-        curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
-        --upload-file sausage-store-${VERSION}.tar.gz
-        ${NEXUS_REPO_URL}/${NEXUS_REPO_FRONTEND_NAME}/${VERSION}/sausage-store-${VERSION}.tar.gz
-
-
 sonarqube-frontend-sast:
   stage: test
   only:
@@ -83,6 +64,26 @@ sonarqube-frontend-sast:
         -Dsonar.qualitygate.wait=true
   needs:
     - build-frontend-code-job
+
+
+
+upload-frontend-release:
+  stage: release
+  only:
+    changes:
+    - frontend/**/*
+  needs:
+    - build-frontend-code-job
+    - sonarqube-frontend-sast
+  script:
+    - ls
+    - cd frontend
+    - ls
+    - cd dist
+    - >
+        curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
+        --upload-file sausage-store-${VERSION}.tar.gz
+        ${NEXUS_REPO_URL}/${NEXUS_REPO_FRONTEND_NAME}/${VERSION}/sausage-store-${VERSION}.tar.gz
 
 
 deploy-frontend:
