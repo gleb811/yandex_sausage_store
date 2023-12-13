@@ -114,7 +114,7 @@ deploy-backend:
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - scp ./backend/deploy.sh ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
+    - scp ./backend/deploy_backend.sh ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
     - scp ./backend/sausage-store-backend.service  ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
     - > 
         ssh ${DEV_USER}@${DEV_HOST} 
@@ -126,7 +126,7 @@ deploy-backend:
         export "NEXUS_REPO_BACKEND_NAME=${NEXUS_REPO_BACKEND_NAME}";
         export "NEXUS_REPO_USER=${NEXUS_REPO_USER}";
         export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}";
-        chmod +x deploy.sh; ./deploy.sh; rm ./deploy.sh"
+        chmod +x deploy_backend.sh; ./deploy_backend.sh; rm ./deploy_backend.sh"
   needs:
     - upload-backend-release
 
