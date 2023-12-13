@@ -40,23 +40,6 @@ build-backend-code-job:
       - ${CI_PROJECT_DIR}/.m2/
     expire_in: 1 day
 
-upload-backend-release:
-  stage: release
-  only:
-    changes:
-    - backend/**/*
-  needs:
-    - spotbugs-sast
-    - sonarqube-backend-sast
-  script:
-    - cd backend
-    - >
-        mvn 
-        deploy
-        -DskipTests
-        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
-        -s settings.xml
-        -Dversion.application=${VERSION}
 
 spotbugs-sast:
   stage: test
@@ -95,6 +78,25 @@ sonarqube-backend-sast:
         -Dsonar.qualitygate.wait=true
   needs:
     - build-backend-code-job
+
+
+upload-backend-release:
+  stage: release
+  only:
+    changes:
+    - backend/**/*
+  needs:
+    - spotbugs-sast
+    - sonarqube-backend-sast
+  script:
+    - cd backend
+    - >
+        mvn 
+        deploy
+        -DskipTests
+        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
+        -s settings.xml
+        -Dversion.application=${VERSION}
     
 
 deploy:
