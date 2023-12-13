@@ -117,6 +117,7 @@ deploy:
         "export "CURRENT_VERSION=${VERSION}";
         export "VERSION=${VERSION}";
         export "DEV_HOST=${DEV_HOST}";
+        export "DEV_USER=${DEV_USER}";
         export "NEXUS_REPO_URL=${NEXUS_REPO_URL}";
         export "NEXUS_REPO_BACKEND_NAME=${NEXUS_REPO_BACKEND_NAME}";
         export "NEXUS_REPO_USER=${NEXUS_REPO_USER}";
