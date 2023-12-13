@@ -46,7 +46,8 @@ upload-backend-release:
     changes:
     - backend/**/*
   needs:
-    - build-backend-code-job
+    - spotbugs-sast
+    - sonarqube-backend-sast
   script:
     - cd backend
     - >
