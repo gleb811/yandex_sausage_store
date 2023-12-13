@@ -41,7 +41,7 @@ build-backend-code-job:
     expire_in: 1 day
 
 
-spotbugs-sast:
+spotbugs-backend-sast:
   stage: test
   rules:
     - changes:
@@ -84,7 +84,7 @@ upload-backend-release:
     changes:
     - backend/**/*
   needs:
-    - spotbugs-sast
+    - spotbugs-backend-sast
     - sonarqube-backend-sast
   script:
     - cd backend
@@ -97,7 +97,7 @@ upload-backend-release:
         -Dversion.application=${VERSION}
     
 
-deploy:
+deploy-backend:
   stage: deploy
   environment:
     name: staging
