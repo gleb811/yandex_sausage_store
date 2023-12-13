@@ -111,6 +111,7 @@ deploy:
     - chmod 644 ~/.ssh/known_hosts
   script:
     - scp ./backend/deploy.sh ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
+    - scp ./backend/sausage-store-backend.service  ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
     - > 
         ssh ${DEV_USER}@${DEV_HOST} 
         "export "CURRENT_VERSION=${VERSION}";
