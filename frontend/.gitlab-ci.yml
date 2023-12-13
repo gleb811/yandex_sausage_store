@@ -3,8 +3,9 @@ variables:
 
 stages:
   - build
-  - release
   - test
+  - release
+  - deploy
   - notify
 
 build-frontend-code-job:
@@ -30,19 +31,6 @@ build-frontend-code-job:
       - frontend/dist/sausage-store-${VERSION}.tar.gz
     expire_in: 1 day
 
-upload-frontend-release:
-  stage: release
-  only:
-    changes:
-    - frontend/**/*
-  needs:
-    - build-frontend-code-job
-  script:
-    - cd frontend/dist
-    - >
-        curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
-        --upload-file sausage-store-${VERSION}.tar.gz
-        ${NEXUS_REPO_URL}/${NEXUS_REPO_FRONTEND_NAME}/${VERSION}/sausage-store-${VERSION}.tar.gz
 
 sonarqube-frontend-sast:
   stage: test
@@ -73,6 +61,52 @@ sonarqube-frontend-sast:
   needs:
     - build-frontend-code-job
 
+upload-frontend-release:
+  stage: release
+  only:
+    changes:
+    - frontend/**/*
+  needs:
+    - sonarqube-frontend-sast
+  script:
+    - cd frontend/dist
+    - >
+        curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
+        --upload-file sausage-store-${VERSION}.tar.gz
+        ${NEXUS_REPO_URL}/${NEXUS_REPO_FRONTEND_NAME}/${VERSION}/sausage-store-${VERSION}.tar.gz
+
+deploy-frontend:
+  stage: deploy
+  environment:
+    name: staging
+    url: http://std-024-07.praktikum-services.tech
+  before_script:
+    #устанавливаем ssh-agent для удобства аутентификации по ssh
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    #сохраняем сгенеренный ранее приватный ключ для раннера
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 600 ~/.ssh
+    - export SSH_KNOWN_HOSTS=`ssh-keyscan ${DEV_HOST}`
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - scp ./frontend/deploy_frontend.sh ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
+    - scp ./frontend/sausage-store-frontend.service  ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
+    - > 
+        ssh ${DEV_USER}@${DEV_HOST} 
+        "export "CURRENT_VERSION=${VERSION}";
+        export "VERSION=${VERSION}";
+        export "DEV_HOST=${DEV_HOST}";
+        export "DEV_USER=${DEV_USER}";
+        export "NEXUS_REPO_URL=${NEXUS_REPO_URL}";
+        export "NEXUS_REPO_FRONTEND_NAME=${NEXUS_REPO_FRONTEND_NAME}";
+        export "NEXUS_REPO_USER=${NEXUS_REPO_USER}";
+        export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}";
+        chmod +x deploy_frontend.sh; ./deploy_frontend.sh; rm ./deploy_frontend.sh"
+  needs:
+    - upload-frontend-release
 
 
 telegram-notification-frontend:
