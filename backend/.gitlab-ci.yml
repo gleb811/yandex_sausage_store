@@ -100,8 +100,10 @@ upload-backend-release:
 deploy:
   stage: deploy
   environment:
-    name: staging
-    url: http://std-024-07.praktikum-services.tech 
+#    name: staging
+#    url: http://std-024-07.praktikum-services.tech
+    name: $CI_COMMIT_REF_SLUG
+    on_stop: Delete deploy
   before_script:
     #устанавливаем ssh-agent для удобства аутентификации по ssh
     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
