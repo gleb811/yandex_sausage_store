@@ -24,6 +24,7 @@ build-frontend-code-job:
     - cd frontend
     - npm install
     - npm run build
+    - sed -i "s/{{VERSION}}/$VERSION/g" dist/frontend/main.js
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
     - echo ${VERSION}
     - cd dist
