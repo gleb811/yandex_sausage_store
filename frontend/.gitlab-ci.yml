@@ -76,10 +76,7 @@ upload-frontend-release:
     - build-frontend-code-job
     - sonarqube-frontend-sast
   script:
-    - ls
-    - cd frontend
-    - ls
-    - cd dist
+    - cd frontend/dist
     - >
         curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
         --upload-file sausage-store-${VERSION}.tar.gz
