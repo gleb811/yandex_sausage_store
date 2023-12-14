@@ -1,30 +1,47 @@
+cache:
+  paths:
+    - frontend/dist
+
+variables:
+  VERSION: 1.0.${CI_PIPELINE_ID}
+
 stages:
   - build
   - test
+  - release
+  - deploy
   - notify
 
 build-frontend-code-job:
   stage: build  
   only:
     changes:
-    - frontend/*
+    - frontend/**/*
+  cache:
+    paths:
+      - .npm/ # для хранения зависимостей сборки фронтенда
   script:
     - cd frontend
     - npm install
     - npm run build
+    - sed -i "s/{{VERSION}}/$VERSION/g" dist/frontend/main.js
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
+    - echo ${VERSION}
+    - cd dist
+    - tar czvf sausage-store-${VERSION}.tar.gz frontend
   artifacts:
     reports:
       dotenv: frontend/build.env
     paths:
-      - frontend/dist/frontend
+      - frontend/dist/sausage-store-${VERSION}.tar.gz
     expire_in: 1 day
+
 
 sonarqube-frontend-sast:
   stage: test
   only:
     changes:
-    - frontend/*  
+    - frontend/**/*  
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
     GIT_DEPTH: "0" 
@@ -51,6 +68,56 @@ sonarqube-frontend-sast:
 
 
 
+upload-frontend-release:
+  stage: release
+  only:
+    changes:
+    - frontend/**/*
+  needs:
+    - build-frontend-code-job
+    - sonarqube-frontend-sast
+  script:
+    - cd frontend/dist
+    - >
+        curl -v -u "${NEXUS_REPO_USER}:${NEXUS_REPO_PASS}"
+        --upload-file sausage-store-${VERSION}.tar.gz
+        ${NEXUS_REPO_URL}/${NEXUS_REPO_FRONTEND_NAME}/${VERSION}/sausage-store-${VERSION}.tar.gz
+
+
+deploy-frontend:
+  stage: deploy
+  environment:
+    name: staging
+    url: http://std-024-07.praktikum-services.tech
+  before_script:
+    #устанавливаем ssh-agent для удобства аутентификации по ssh
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    #сохраняем сгенеренный ранее приватный ключ для раннера
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 600 ~/.ssh
+    - export SSH_KNOWN_HOSTS=`ssh-keyscan ${DEV_HOST}`
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - scp ./frontend/deploy_frontend.sh ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
+    - scp ./frontend/sausage-store-frontend.service  ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
+    - > 
+        ssh ${DEV_USER}@${DEV_HOST} 
+        "export "CURRENT_VERSION=${VERSION}";
+        export "VERSION=${VERSION}";
+        export "DEV_HOST=${DEV_HOST}";
+        export "DEV_USER=${DEV_USER}";
+        export "NEXUS_REPO_URL=${NEXUS_REPO_URL}";
+        export "NEXUS_REPO_FRONTEND_NAME=${NEXUS_REPO_FRONTEND_NAME}";
+        export "NEXUS_REPO_USER=${NEXUS_REPO_USER}";
+        export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}";
+        chmod +x deploy_frontend.sh; ./deploy_frontend.sh; rm ./deploy_frontend.sh"
+  needs:
+    - upload-frontend-release
+
+
 telegram-notification-frontend:
   variables:
       TEXT: "Глеб Федотов собрал frontend ${CI_PROJECT_URL}/-/jobs/${PREV_JOB_ID}/artifacts/download"
@@ -58,11 +125,11 @@ telegram-notification-frontend:
   stage: notify
   only:
     changes:
-    - frontend/*
+    - frontend/**/*
     variables:
     - $CI_COMMIT_MESSAGE =~ /send notification/
   script:
-    - ls frontend/dist/frontend/*
+    - ls frontend/dist/*
     - 'curl -X POST -H "Content-type: application/json" --data "{\"chat_id\": \"-1002134018008\", \"text\": \"${TEXT}\"}" ${TLGRM}'
   needs:
     - build-frontend-code-job

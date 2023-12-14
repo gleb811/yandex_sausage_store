@@ -1,0 +1,16 @@
+[Unit]
+Description=Run http-server with frontend
+After=network.target
+
+[Service]
+User=frontend
+Group=frontend
+Type=exec
+WorkingDirectory=/opt/sausage-store/static/dist/frontend
+ExecStart=/usr/bin/http-server -p 80 --proxy http://localhost:8080
+# optional items below
+Restart=always
+#RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+[Unit]
+Description=Run java with backend
+After=network.target
+
+[Service]
+User=backend
+Group=backend
+Type=exec
+Environment="REPORT_PATH=/var/sausage-store/reports"
+Environment="LOG_PATH=/var/sausage-store/logs"
+WorkingDirectory=/opt/sausage-store/bin/
+ExecStart=/usr/bin/java -jar sausage-store-backend.jar
+# optional items below
+Restart=always
+#RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+
