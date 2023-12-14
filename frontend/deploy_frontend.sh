@@ -9,7 +9,7 @@ cd /opt/sausage-store/static/dist
 sudo -u frontend tar -xvf sausage-store-${VERSION}.tar.gz
 sudo -u frontend rm -f sausage-store-${VERSION}.tar.gz
 
-sudo mv /home/${DEV_USER}/sausage-store-backend.service /etc/systemd/system/sausage-store-backend.service
+sudo mv /home/${DEV_USER}/sausage-store-frontend.service /etc/systemd/system/sausage-store-frontend.service
 
 sudo systemctl daemon-reload
-sudo systemctl restart sausage-store-backend
+sudo systemctl restart sausage-store-frontend
