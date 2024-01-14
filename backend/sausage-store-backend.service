@@ -9,6 +9,19 @@ Type=exec
 Environment="REPORT_PATH=/var/sausage-store/reports"
 Environment="LOG_PATH=/var/sausage-store/logs"
 WorkingDirectory=/opt/sausage-store/bin/
+
+# подставьте значения переменных
+Environment=PSQL_USER="std-024-07"
+Environment=PSQL_PASSWORD="Testusr1234"
+Environment=PSQL_HOST="rc1d-6ltxi07qdaaunpa5.mdb.yandexcloud.net"
+Environment=PSQL_DBNAME="std-024-07"
+Environment=PSQL_PORT="6432"
+
+# Параметры подключения к БД можно указать с помощью переменных окружения SPRING
+Environment=SPRING_DATASOURCE_URL="jdbc:postgresql://${PSQL_HOST}:${PSQL_PORT}/${PSQL_DBNAME}?ssl=true"
+Environment=SPRING_DATASOURCE_USERNAME="${PSQL_USER}"
+Environment=SPRING_DATASOURCE_PASSWORD="${PSQL_PASSWORD}"
+
 ExecStart=/usr/bin/java -jar sausage-store-backend.jar
 # optional items below
 Restart=always
