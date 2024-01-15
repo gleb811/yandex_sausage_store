@@ -96,7 +96,7 @@ upload-backend-release:
         -s settings.xml
         -Dversion.application=${VERSION}
     
-
+#
 #deploy-backend:
 #  stage: deploy
 #  environment:
