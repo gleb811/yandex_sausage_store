@@ -99,7 +99,7 @@ upload-backend-release:
         -Dversion.application=${VERSION}
     
 
-#deploy-backend:
+deploy-backend:
   stage: deploy
   environment:
     name: staging
