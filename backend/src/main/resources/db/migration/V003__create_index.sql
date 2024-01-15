@@ -6,7 +6,7 @@ INSERT INTO
     SELECT 
         i
         ,(array['pending', 'shipped', 'cancelled'])[floor(random() * 3 + 1)]
-        ,DATE(NOW() - (random() * (NOW()+to_date('90 days', 'DD MON YYYY') - NOW()))) 
+        ,DATE(NOW() - (random() * (DATE_ADD(NOW(), INTERVAL 90 DAY) - NOW()))) 
     FROM generate_series(1, 10000000) s(i);
 INSERT INTO 
     order_product (
