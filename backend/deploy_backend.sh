@@ -6,7 +6,7 @@ sudo -u backend curl -u ${NEXUS_REPO_USER}:${NEXUS_REPO_PASS} -o /opt/sausage-st
 
 sudo -u backend ln -vfns /opt/sausage-store/bin/sausage-store-${VERSION}.jar /opt/sausage-store/bin/sausage-store-backend.jar
 
-sed -i 's/PSQL_SECRET_PASS/${PSQL_PASSWORD}' sausage-store-backend.service
+sed -i 's/PSQL_SECRET_PASS/\${PSQL_PASSWORD}' sausage-store-backend.service
 
 sudo mv /home/${DEV_USER}/sausage-store-backend.service /etc/systemd/system/sausage-store-backend.service
 
