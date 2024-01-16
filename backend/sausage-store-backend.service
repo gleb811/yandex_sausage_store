@@ -12,7 +12,7 @@ WorkingDirectory=/opt/sausage-store/bin/
 
 # подставьте значения переменных
 Environment=PSQL_USER="std-024-07"
-Environment=PSQL_PASSWORD="$PSQL_PASSWORD"
+Environment=PSQL_PASSWORD="PSQL_SECRET_PASS"
 Environment=PSQL_HOST="rc1d-6ltxi07qdaaunpa5.mdb.yandexcloud.net"
 Environment=PSQL_DBNAME="std-024-07"
 Environment=PSQL_PORT="6432"
