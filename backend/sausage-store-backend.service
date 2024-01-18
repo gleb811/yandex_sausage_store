@@ -24,7 +24,7 @@ Environment=SPRING_DATASOURCE_PASSWORD="${PSQL_PASSWORD}"
 
 Environment=MONGO_USER="std-024-07"
 Environment=MONGO_PASSWORD="PSQL_SECRET_PASS"
-Environment=MONGO_HOST="rs01/rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net"
+Environment=MONGO_HOST="rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net"
 Environment=MONGO_PORT=27018
 Environment=MONGO_DATABASE="std-024-07"
 
