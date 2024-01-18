@@ -129,6 +129,7 @@ deploy-backend:
         export "NEXUS_REPO_USER=${NEXUS_REPO_USER}";
         export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}";
         export "PSQL_PASSWORD=${PSQL_PASSWORD}";
+        export "MONGODB_PASSWORD=${MONGODB_PASSWORD}";
         chmod +x deploy_backend.sh; ./deploy_backend.sh; rm ./deploy_backend.sh"
   needs:
     - upload-backend-release

@@ -12,7 +12,7 @@ WorkingDirectory=/opt/sausage-store/bin/
 
 # подставьте значения переменных
 Environment=PSQL_USER="std-024-07"
-Environment=PSQL_PASSWORD="PSQL_SECRET_PASS"
+Environment=PSQL_PASSWORD="PSQL_SECRET_PASS_PSQL"
 Environment=PSQL_HOST="rc1d-6ltxi07qdaaunpa5.mdb.yandexcloud.net"
 Environment=PSQL_DBNAME="std-024-07"
 Environment=PSQL_PORT="6432"
@@ -23,7 +23,7 @@ Environment=SPRING_DATASOURCE_USERNAME="${PSQL_USER}"
 Environment=SPRING_DATASOURCE_PASSWORD="${PSQL_PASSWORD}"
 
 Environment=MONGO_USER="std-024-07"
-Environment=MONGO_PASSWORD="PSQL_SECRET_PASS"
+Environment=MONGO_PASSWORD="PSQL_SECRET_PASS_MONGODB"
 Environment=MONGO_HOST="rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net"
 Environment=MONGO_PORT=27018
 Environment=MONGO_DATABASE="std-024-07"
