@@ -7,7 +7,7 @@ variables:
   VERSION: 1.0.${CI_PIPELINE_ID}
   MAVEN_REPO_PATH: ${CI_PROJECT_DIR}/.m2/repository
   JAVA_OPTS: -XX:MaxRAMPercentage=90 # для того, чтобы Maven не съел всю свободную оперативку
-###
+##
 stages:
   - build
   - test
@@ -129,6 +129,7 @@ deploy-backend:
         export "NEXUS_REPO_USER=${NEXUS_REPO_USER}";
         export "NEXUS_REPO_PASS=${NEXUS_REPO_PASS}";
         export "PSQL_PASSWORD=${PSQL_PASSWORD}";
+        export "MONGODB_PASSWORD=${MONGODB_PASSWORD}";
         chmod +x deploy_backend.sh; ./deploy_backend.sh; rm ./deploy_backend.sh"
   needs:
     - upload-backend-release
