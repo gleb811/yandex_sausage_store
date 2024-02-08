@@ -128,7 +128,8 @@ release-backend-docker:
     - crane auth login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - crane tag $CI_REGISTRY_IMAGE/sausage-backend:$CI_COMMIT_SHA latest
-  needs:   
+  needs:
+    - build-backend-docker   
 #    - spotbugs-sast
 #    - sonarqube-backend-sast
     
