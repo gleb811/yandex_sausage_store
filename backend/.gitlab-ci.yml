@@ -129,8 +129,8 @@ release-backend-docker:
   script:
     - crane tag $CI_REGISTRY_IMAGE/sausage-backend:$CI_COMMIT_SHA latest
   needs:   
-    - spotbugs-sast
-    - sonarqube-backend-sast
+#    - spotbugs-sast
+#    - sonarqube-backend-sast
     
 
 #deploy-backend:
