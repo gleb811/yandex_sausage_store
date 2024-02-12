@@ -80,6 +80,7 @@ sonarqube-backend-sast:
   variables:
 #    MAVEN_REPO_PATH: $CI_PROJECT_DIR/.m2/repository
     SONAR_PROJECT_NAME: "24_ГЛЕБФЕДОТОВ_БЭКЭНД"
+    SPRING_CLOUD_VAULT_ENABLED: "false"
   image: maven:3.8-openjdk-16
   script:
     - cd backend
