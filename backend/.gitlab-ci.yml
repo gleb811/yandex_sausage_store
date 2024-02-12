@@ -121,9 +121,9 @@ upload-backend-release:
         mvn 
         deploy
         -DskipTests
-#        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
         -s settings.xml
         -Dversion.application=${VERSION}
+#        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
 
         
 release-backend-docker:
