@@ -33,6 +33,7 @@ build-backend-code-job:
         -Dmaven.repo.local=${MAVEN_REPO_PATH}
         -Dversion.application=${VERSION}
         -Dspring.flyway.enabled=false
+        -Dspring.config.use-legacy-processing=true
     - echo "PREV_JOB_ID=${CI_JOB_ID}" > build.env
     - echo "MAVEN_REPO_PATH=${CI_PROJECT_DIR}/.m2/repository" >> build.env
   artifacts:
