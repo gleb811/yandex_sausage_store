@@ -89,7 +89,7 @@ sonarqube-backend-sast:
   image: maven:3.8-openjdk-16
   script:
     - cd backend
-    -ls $CI_PROJECT_DIR/.m2/repository
+    - ls $CI_PROJECT_DIR/.m2/repository
     - >
         mvn 
         --batch-mode verify sonar:sonar 
