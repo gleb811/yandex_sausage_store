@@ -123,7 +123,7 @@ upload-backend-release:
         -DskipTests
         -s settings.xml
         -Dversion.application=${VERSION}
-#        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
+        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
 
         
 release-backend-docker:

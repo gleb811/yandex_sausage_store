@@ -167,8 +167,7 @@ che.org/xsd/maven-4.0.0.xsd">
      <repository>
             <id>${env.NEXUS_REPO_BACKEND_NAME}</id>
             <name>${env.NEXUS_REPO_BACKEND_NAME}</name>
-            <url>${env.NEXUS_REPO_URL}/repository/${env.NEXUS_REPO_BACKEND_NAME}
-/</url>
+            <url>${env.NEXUS_REPO_URL}/repository/${env.NEXUS_REPO_BACKEND_NAME}/</url>
         </repository>
     </distributionManagement>
 
