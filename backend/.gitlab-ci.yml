@@ -116,10 +116,8 @@ upload-backend-release:
   needs:
     - spotbugs-sast
     - sonarqube-backend-sast
-    - build-backend-code-job
   script:
     - cd backend
-#    - ls ${CI_PROJECT_DIR}/.m2/repository
     - >
         mvn 
         deploy
@@ -127,6 +125,7 @@ upload-backend-release:
         -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
         -s settings.xml
         -Dversion.application=${VERSION}
+
         
 release-backend-docker:
   variables:
