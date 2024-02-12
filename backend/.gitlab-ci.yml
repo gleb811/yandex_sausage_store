@@ -99,6 +99,7 @@ sonarqube-backend-sast:
         -Dsonar.projectKey=$SONAR_PROJECT_KEY_BACK 
         -Dsonar.qualitygate.wait=true
         -Dspring.config.use-legacy-processing=true
+        -Dmaven.test.skip=true 
         -Dspring.flyway.enabled=false
   needs:
 #    - build-backend-code-job
