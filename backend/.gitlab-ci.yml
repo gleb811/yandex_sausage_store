@@ -89,7 +89,6 @@ sonarqube-backend-sast:
   image: maven:3.8-openjdk-16
   script:
     - cd backend
-    - ls $CI_PROJECT_DIR/.m2/repository
     - >
         mvn 
         --batch-mode verify sonar:sonar 
@@ -122,7 +121,7 @@ upload-backend-release:
         mvn 
         deploy
         -DskipTests
-        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
+#        -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
         -s settings.xml
         -Dversion.application=${VERSION}
 
