@@ -116,7 +116,7 @@ upload-backend-release:
   needs:
     - spotbugs-sast
     - sonarqube-backend-sast
-    - build-backend-code-job#
+    - build-backend-code-job
   script:
     - cd backend
     - ls ${CI_PROJECT_DIR}/.m2/repository
@@ -125,7 +125,6 @@ upload-backend-release:
         deploy
         -DskipTests
         -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
-#        -Dspring.config.use-legacy-processing=true
         -Dmaven.test.skip=true 
         -s settings.xml
         -Dversion.application=${VERSION}
