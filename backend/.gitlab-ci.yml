@@ -71,7 +71,7 @@ spotbugs-sast:
     MAVEN_REPO_PATH: ${CI_PROJECT_DIR}/.m2/repository
     SPRING_CLOUD_VAULT_ENABLED: "false"
   needs:
-#    - build-backend-code-job
+    - build-backend-code-job
     - build-backend-docker
    
 
@@ -102,7 +102,7 @@ sonarqube-backend-sast:
         -Dmaven.test.skip=true 
         -Dspring.flyway.enabled=false
   needs:
-#    - build-backend-code-job
+    - build-backend-code-job
     - build-backend-docker  
 
 
