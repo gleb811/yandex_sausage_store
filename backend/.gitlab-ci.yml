@@ -20,6 +20,8 @@ build-backend-code-job:
   only:
     changes:
     - backend/**/*
+  variables:
+    SPRING_CLOUD_VAULT_ENABLED: "false"
   cache:
     paths:
       - ${CI_PROJECT_DIR}/.m2/repository
