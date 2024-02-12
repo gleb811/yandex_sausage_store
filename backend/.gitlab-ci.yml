@@ -83,7 +83,7 @@ sonarqube-backend-sast:
     changes:
     - backend/**/*  
   variables:
-    MAVEN_REPO_PATH: $CI_PROJECT_DIR/.m2/repository
+#    MAVEN_REPO_PATH: $CI_PROJECT_DIR/.m2/repository
     SONAR_PROJECT_NAME: "24_ГЛЕБФЕДОТОВ_БЭКЭНД"
     SPRING_CLOUD_VAULT_ENABLED: "false"
   image: maven:3.8-openjdk-16
@@ -119,13 +119,12 @@ upload-backend-release:
     - build-backend-code-job
   script:
     - cd backend
-    - ls ${CI_PROJECT_DIR}/.m2/repository
+#    - ls ${CI_PROJECT_DIR}/.m2/repository
     - >
         mvn 
         deploy
         -DskipTests
         -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository
-        -Dmaven.test.skip=true 
         -s settings.xml
         -Dversion.application=${VERSION}
         
