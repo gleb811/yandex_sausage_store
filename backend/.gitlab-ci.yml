@@ -117,6 +117,7 @@ upload-backend-release:
     - sonarqube-backend-sast
   script:
     - cd backend
+    - ls ${CI_PROJECT_DIR}/.m2/repository
     - >
         mvn 
         deploy
