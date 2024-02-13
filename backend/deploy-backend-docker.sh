@@ -8,8 +8,8 @@ sudo docker run -d --name sausage-backend  --pull always\
      --env SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME} \
      --env SPRING_CLOUD_VAULT_TOKEN=${SPRING_CLOUD_VAULT_TOKEN} \
      --env SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD} \
-     --env SPRING_DATA_MONGODB_URI=${SPRING_DATA_MONGODB_URI=} \
-     --env SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+     --env SPRING_DATA_MONGODB_URI=${SPRING_DATA_MONGODB_URI} \
+     --env SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL} \
      --network=sausage_network \
      "${CI_REGISTRY_IMAGE}"/sausage-backend
 sudo docker image prune -f
