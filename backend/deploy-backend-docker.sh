@@ -12,6 +12,3 @@ sudo docker run -d --name sausage-backend  --pull always\
      --network=sausage_network \
      "${CI_REGISTRY_IMAGE}"/sausage-backend
 sudo docker image prune -f
-echo ${SPRING_CLOUD_VAULT_TOKEN}
-echo ${SPRING_DATASOURCE_PASSWORD}
-echo ${VAULT_TOKEN}
