@@ -196,6 +196,8 @@ deploy:
   image: docker:24.0.7-alpine3.19
   environment:
     name: production/backend
+  variables:
+    DOCKER_HOST: ssh://${DEV_USER}@${DEV_HOST}  
   when: manual
   before_script:
     - apk add docker-cli-compose openssh-client bash gettext
@@ -216,8 +218,6 @@ deploy:
     - docker context ls
     - docker context use remote
     - docker context ls
-    - echo $DOCKER_HOST
-    - export DOCKER_HOST=ssh://${DEV_USER}@${DEV_HOST}
     - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
   needs:
     - release-backend-docker   
