@@ -215,6 +215,9 @@ deploy:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context ls
     - docker context use remote
+    - docker context ls
+    - echo $DOCKER_HOST
+    - export DOCKER_HOST=ssh://${DEV_USER}@${DEV_HOST}
     - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
   needs:
     - release-backend-docker   
