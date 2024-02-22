@@ -198,7 +198,7 @@ deploy:
     name: production/backend
   when: manual
   before_script:
-    - apk add docker-cli-compose openssh-client
+    - apk add docker-cli-compose openssh-client bash gettext
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY"| tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
@@ -213,6 +213,7 @@ deploy:
     - echo "REPORTS_MONGODB_URI="mongodb://std-024-07:${MONGODB_PASSWORD}@$rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/std-024-07?tls=true"" >> deploy.env
     - echo "REPORT_PATH=/var/www-data/htdocs" >> deploy.env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker context ls
     - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
   needs:
     - release-backend-docker   
