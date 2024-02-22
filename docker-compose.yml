@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  backend:
+    image: ${CI_REGISTRY_IMAGE}/sausage-backend:latest
+    container_name: sausage-store-backend
+    environment:
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+    restart: always
+    networks:
+      - sausage-store
+
+networks:
+  sausage-store:
