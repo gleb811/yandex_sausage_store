@@ -196,8 +196,8 @@ deploy:
   image: docker:24.0.7-alpine3.19
   environment:
     name: production/backend
-  variables:
-    DOCKER_HOST: ssh://${DEV_USER}@${DEV_HOST}  
+#  variables:
+#    DOCKER_HOST: ssh://${DEV_USER}@${DEV_HOST}  
   when: manual
   before_script:
     - apk add docker-cli-compose openssh-client bash gettext
