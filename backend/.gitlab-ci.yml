@@ -193,7 +193,8 @@ release-backend-docker:
 
 deploy:
   stage: deploy
-  image: docker:20.10.10-alpine3.14
+  image: docker:24.0.7-alpine3.19
+  privileged: true
   environment:
     name: production/backend
 #  variables:
