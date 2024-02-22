@@ -194,7 +194,6 @@ release-backend-docker:
 deploy:
   stage: deploy
   image: docker:24.0.7-alpine3.19
-  privileged: true
   environment:
     name: production/backend
 #  variables:
@@ -219,6 +218,8 @@ deploy:
     - docker context ls
     - docker context use remote
     - docker context ls
+    - docker ps
+    - docker images
     - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
   needs:
     - release-backend-docker   
