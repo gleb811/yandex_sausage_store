@@ -150,6 +150,8 @@ deploy:
     - export SSH_KNOWN_HOSTS=`ssh-keyscan ${DEV_HOST}`
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
+    - ssh ${DEV_USER}@${DEV_HOST} "sudo rm -f -R /tmp${CI_PROJECT_DIR}/frontend; sudo mkdir -p /tmp${CI_PROJECT_DIR}/frontend; sudo chown ${DEV_USER}:${DEV_USER} /tmp${CI_PROJECT_DIR}/frontend -R"
+    - scp ./frontend/default.conf ${DEV_USER}@${DEV_HOST}:/tmp${CI_PROJECT_DIR}/frontend/
     - docker context create remote --description "remote ssh" --docker "host=ssh://${DEV_USER}@${DEV_HOST}"
   script:
     - echo "VERSION=latest" >> deploy.env
