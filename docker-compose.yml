@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     image: ${CI_REGISTRY_IMAGE}/sausage-backend:latest
-    container_name: sausage-store-backend:latest
+    container_name: sausage-backend
     environment:
       SPRING_DATASOURCE_USERNAME: std-024-07
       SPRING_DATASOURCE_PASSWORD: Testusr1234
@@ -16,7 +16,7 @@ services:
     image: ${CI_REGISTRY_IMAGE}/sausage-frontend:latest
     volumes:
       - /tmp/${CI_PROJECT_DIR}/frontend/default.conf:/etc/nginx/conf.d/default.conf
-    container_name: sausage-store-frontend
+    container_name: sausage-frontend
     restart: always
     ports:
       - "8080:80"
