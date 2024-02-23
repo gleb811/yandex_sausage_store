@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     image: ${CI_REGISTRY_IMAGE}/sausage-backend:latest
-    container_name: sausage-store-backend
+    container_name: sausage-store-backend:latest
     environment:
       SPRING_DATASOURCE_USERNAME: std-024-07
       SPRING_DATASOURCE_PASSWORD: Testusr1234
@@ -25,3 +25,5 @@ services:
 
 networks:
   sausage-network:
+    driver: bridge
+
