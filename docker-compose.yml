@@ -12,5 +12,14 @@ services:
     networks:
       - sausage-store
 
+  frontend:
+    image: ${CI_REGISTRY_IMAGE}/sausage-frontend:latest
+    container_name: sausage-store-frontend
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - sausage-store
+
 networks:
   sausage-store:
