@@ -2,18 +2,20 @@ version: "3.8"
 
 services:
   backend:
-    image: ${CI_REGISTRY_IMAGE}/sausage-backend:latest
+    image: ${CI_REGISTRY_IMAGE}/sausage-store-backend:latest
     container_name: sausage-store-backend
+    build:
+      dockerfile: backend/Dockerfile
     environment:
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
     restart: always
     networks:
-      - sausage-store
+      - sausage_network
 
   frontend:
-    image: ${CI_REGISTRY_IMAGE}/sausage-frontend:latest
+    image: ${CI_REGISTRY_IMAGE}/sausage-store-frontend:latest
     volumes:
       - /tmp/${CI_PROJECT_DIR}/frontend/default.conf:/etc/nginx/conf.d/default.conf
     container_name: sausage-store-frontend
@@ -21,7 +23,7 @@ services:
     ports:
       - "8080:80"
     networks:
-      - sausage-store
+      - sausage_network
 
 networks:
-  sausage-store:
+  sausage_network:

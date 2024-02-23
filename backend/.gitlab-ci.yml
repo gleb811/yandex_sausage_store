@@ -198,7 +198,7 @@ deploy:
     name: production/backend
 #  variables:
 #    DOCKER_HOST: ssh://${DEV_USER}@${DEV_HOST}  
-  when: manual
+#  when: manual
   before_script:
     - apk add docker-cli-compose openssh-client bash gettext
     - eval $(ssh-agent -s)
