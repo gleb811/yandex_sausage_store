@@ -4,6 +4,8 @@ services:
   backend:
     image: ${CI_REGISTRY_IMAGE}/sausage-store-backend:latest
     container_name: sausage-store-backend
+    build:
+      dockerfile: backend/Dockerfile
     environment:
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
