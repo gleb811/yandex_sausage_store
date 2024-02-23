@@ -15,9 +15,7 @@ services:
   frontend:
     image: ${CI_REGISTRY_IMAGE}/sausage-frontend:latest
     volumes:
-      - type: bind
-        source: /tmp/${CI_PROJECT_DIR}/frontend/default.conf
-        target: /etc/nginx/conf.d/default.conf
+      - /tmp/${CI_PROJECT_DIR}/frontend/default.conf:/etc/nginx/conf.d/default.conf
     container_name: sausage-store-frontend
     restart: always
     ports:
