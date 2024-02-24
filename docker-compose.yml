@@ -6,9 +6,9 @@ services:
     container_name: sausage-backend
     restart: always
     environment:
-      SPRING_DATASOURCE_USERNAME: std-024-07
-      SPRING_DATASOURCE_PASSWORD: Testusr1234
-      SPRING_DATASOURCE_URL: jdbc:postgresql://rc1d-6ltxi07qdaaunpa5.mdb.yandexcloud.net:6432/std-024-07?ssl=true
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATA_MONGODB_URI: ${SPRING_DATA_MONGODB_URI}
     networks:
       - sausage-network
