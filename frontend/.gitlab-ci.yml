@@ -159,7 +159,8 @@ deploy:
     - docker rm -f sausage-frontend || true
     - docker --context remote compose --env-file deploy.env up frontend -d --pull "always" --force-recreate
     - docker image prune -f
-
+  needs:
+    - release-frontend-docker
 
 #deploy-frontend:
 #  stage: deploy
