@@ -211,13 +211,12 @@ deploy:
     - docker context create remote --description "remote ssh" --docker "host=ssh://${DEV_USER}@${DEV_HOST}"
   script:
     - echo "SPRING_DATASOURCE_URL=jdbc:postgresql://${PSQL_HOST}:${PSQL_PORT}/${PSQL_DBNAME}?ssl=true" >> deploy.env
-    - echo "SPRING_DATASOURCE_USERNAME=std-024-07" >> deploy.env
+    - echo "SPRING_DATASOURCE_USERNAME=${PSQL_ADMIN}" >> deploy.env
     - echo "SPRING_DATASOURCE_PASSWORD=${PSQL_PASSWORD}" >> deploy.env
     - echo "REPORTS_MONGODB_URI="mongodb://std-024-07:${MONGODB_PASSWORD}@$rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/std-024-07?tls=true"" >> deploy.env
     - echo "REPORT_PATH=/var/www-data/htdocs" >> deploy.env
     - echo "PSQL_USER=std-024-07" >> deploy.env
     - echo "SPRING_DATASOURCE_URL=jdbc:postgresql://${PSQL_HOST}:${PSQL_PORT}/${PSQL_DBNAME}?ssl=true" >> deploy.env
-    - echo "SPRING_DATASOURCE_USERNAME=${PSQL_USER}" >> deploy.env
     - echo "SPRING_DATASOURCE_PASSWORD=${PSQL_PASSWORD}" >> deploy.env
     - echo "MONGO_USER=std-024-07" >> deploy.env
     - echo "MONGO_PASSWORD=Testusr1234" >> deploy.env
