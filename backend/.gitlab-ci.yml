@@ -217,7 +217,6 @@ deploy:
     - echo "REPORT_PATH=/var/www-data/htdocs" >> deploy.env
     - echo "PSQL_USER=std-024-07" >> deploy.env
     - echo "SPRING_DATASOURCE_URL=jdbc:postgresql://${PSQL_HOST}:${PSQL_PORT}/${PSQL_DBNAME}?ssl=true" >> deploy.env
-    - echo "SPRING_DATASOURCE_PASSWORD=${PSQL_PASSWORD}" >> deploy.env
     - echo "MONGO_USER=std-024-07" >> deploy.env
     - echo "MONGO_PASSWORD=Testusr1234" >> deploy.env
     - echo "MONGO_HOST=rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net" >> deploy.env
