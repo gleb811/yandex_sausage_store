@@ -154,11 +154,11 @@ deploy:
     - scp ./frontend/default.conf ${DEV_USER}@${DEV_HOST}:/tmp${CI_PROJECT_DIR}/frontend/
     - docker context create remote --description "remote ssh" --docker "host=ssh://${DEV_USER}@${DEV_HOST}"
   script:
-    - echo "VERSION=latest" >> deploy.env
+  #  - echo "VERSION=latest" >> deploy.env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context use remote
     - docker rm -f sausage-frontend || true
-    - docker --context remote compose --env-file deploy.env up frontend -d --pull "always" --force-recreate
+    - docker --context remote compose up frontend -d --pull "always" --force-recreate
     - docker image prune -f
   needs:
     - release-frontend-docker
