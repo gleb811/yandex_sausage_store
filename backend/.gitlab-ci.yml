@@ -232,7 +232,6 @@ deploy:
   needs:
     - release-backend-docker   
 
-
 #telegram-notification-backend:
 #  variables:
 #      TEXT: "Глеб Федотов собрал backend ${CI_PROJECT_URL}/-/jobs/${PREV_JOB_ID}/artifacts/download"
