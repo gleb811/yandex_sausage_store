@@ -18,7 +18,7 @@ services:
     container_name: sausage-backend-report
     restart: always
     environment:
-      PORT: 8080
+      PORT: 8081
       DB: ${REPORTS_MONGODB_URI}
     networks:
       - sausage-network
