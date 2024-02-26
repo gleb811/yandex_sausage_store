@@ -29,14 +29,14 @@ build-backend-report:
       --cache=true
 
 test-backend-report:
-    stage: test
-    image: python:3
-    script:
-      - cd backend-report
-      - pip install -r requirements.txt
-      - python3 -m unittest
-    needs:
-      - build-backend-report
+  stage: test
+  image: python:3
+  script:
+    - cd backend-report
+    - pip install -r requirements.txt
+    - python3 -m unittest
+  needs:
+    - build-backend-report
 
 release-backend-report:
   variables:
@@ -50,7 +50,7 @@ release-backend-report:
     - crane auth login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - crane tag $CI_REGISTRY_IMAGE/sausage-backend-report:$CI_COMMIT_SHA latest
   needs:
-      - test-backend-report
+    - test-backend-report
   
 deploy:
   stage: deploy
@@ -81,4 +81,4 @@ deploy:
     - docker --context remote compose --env-file deploy.env up backend-report -d --pull "always" --force-recreate 
     - docker image prune -f
   needs:
-      - release-backend-report
+    - release-backend-report
