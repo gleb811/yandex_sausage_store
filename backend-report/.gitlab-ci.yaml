@@ -72,4 +72,3 @@ deploy:
     - echo "REPORTS_MONGODB_URI="mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?tls=true"" >> deploy.env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker --context remote compose --env-file deploy.env up backend-report -d --pull "always" --force-recreate 
-    
