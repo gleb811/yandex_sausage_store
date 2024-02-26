@@ -15,7 +15,7 @@ stages:
   - release
   - deploy
 
-build:
+build-backend-report:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.9.0-debug
@@ -28,15 +28,17 @@ build:
       --build-arg VERSION=$VERSION
       --cache=true
 
-#semgrep-sast:
-#  variables:
-#    COMPILE: "true"
-#    SAST_JAVA_VERSION: 17
-#    MAVEN_REPO_PATH: ${CI_PROJECT_DIR}/.m2/repository
-#  dependencies:
-#    - build
+test-backend-report:
+    stage: test
+    image: python:3
+    script:
+      - cd backend-report
+      - pip install -r requirements.txt
+      - python3 -m unittest
+    needs:
+      - build-backend-report
 
-release:
+release-backend-report:
   variables:
     GIT_STRATEGY: none
   image:
@@ -47,6 +49,8 @@ release:
   script:
     - crane auth login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - crane tag $CI_REGISTRY_IMAGE/sausage-backend-report:$CI_COMMIT_SHA latest
+  needs:
+      - test-backend-report
   
 deploy:
   stage: deploy
@@ -76,3 +80,5 @@ deploy:
     - docker rm -f sausage-backend-report || true
     - docker --context remote compose --env-file deploy.env up backend-report -d --pull "always" --force-recreate 
     - docker image prune -f
+  needs:
+      - release-backend-report

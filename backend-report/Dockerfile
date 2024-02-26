@@ -1,4 +1,4 @@
-FROM python:3.13.0a4-alpine3.19
+FROM python:latest
 WORKDIR /app
 COPY . .
 RUN mkdir /root/.postgresql && wget -O /root/.postgresql/root.crt https://storage.yandexcloud.net/cloud-certs/CA.pem && pip install -r requirements.txt
