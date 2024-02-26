@@ -20,6 +20,8 @@ services:
     environment:
       PORT: 8080
       DB: ${REPORTS_MONGODB_URI}
+    ports:
+      - "8080:8080"
     networks:
       - sausage-network
 
