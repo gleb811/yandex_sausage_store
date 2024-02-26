@@ -13,6 +13,16 @@ services:
     networks:
       - sausage-network
 
+  backend-report:
+    image: ${CI_REGISTRY_IMAGE}/sausage-backend-report:latest
+    container_name: sausage-backend-report
+    restart: always
+    environment:
+      PORT: 8080
+      DB: ${REPORTS_MONGODB_URI}
+    networks:
+      - sausage-network
+
   frontend:
     image: ${CI_REGISTRY_IMAGE}/sausage-frontend:latest
     volumes:
