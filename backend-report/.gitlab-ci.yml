@@ -69,7 +69,8 @@ deploy:
     - echo "VERSION=latest" >> deploy.env
     - echo "PORT=8080" >> deploy.env
     - echo "REPORT_PATH=/var/www-data/htdocs" >> deploy.env
-    - echo "REPORTS_MONGODB_URI="mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?tlsAllowInvalidCertificates=true"" >> deploy.env
+  #  - echo "REPORTS_MONGODB_URI="mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?tlsAllowInvalidCertificates=true"" >> deploy.env
+    - echo "REPORTS_MONGODB_URI=mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?ssl=true" >> deploy.env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context use remote
     - docker rm -f sausage-backend-report || true
