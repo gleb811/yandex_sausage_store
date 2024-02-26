@@ -30,7 +30,7 @@ services:
     container_name: sausage-frontend
     restart: always
     ports:
-      - "8080:80"
+      - "80:80"
     networks:
       - sausage-network
 
