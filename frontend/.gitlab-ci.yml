@@ -113,28 +113,55 @@ release-frontend-docker:
   needs:
     - sonarqube-frontend-sast
 
-deploy-frontend-docker:
+#deploy-frontend-docker:
+#  stage: deploy
+#  image: alpine:3.18
+#  script:
+#    - apk add openssh-client bash gettext
+#    - eval $(ssh-agent -s)
+#    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add -
+#    - mkdir -p ~/.ssh
+#    - chmod 700 ~/.ssh
+#    - export SSH_KNOWN_HOSTS=`ssh-keyscan ${DEV_HOST}`
+#    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+#    - chmod 644 ~/.ssh/known_hosts
+#    - ssh ${DEV_USER}@${DEV_HOST} "sudo rm -f -R /tmp${CI_PROJECT_DIR}/frontend; sudo mkdir -p /tmp${CI_PROJECT_DIR}/frontend; sudo chown ${DEV_USER}:${DEV_USER} /tmp${CI_PROJECT_DIR}/frontend -R"
+#    - scp ./frontend/default.conf ${DEV_USER}@${DEV_HOST}:/tmp${CI_PROJECT_DIR}/frontend/
+#    - scp ./frontend/deploy-frontend-docker.sh ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
+#    - > 
+#        ssh ${DEV_USER}@${DEV_HOST} 
+#        "chmod +x deploy-frontend-docker.sh; ./deploy-frontend-docker.sh; rm ./deploy-frontend-docker.sh"
+#    - envsubst < ./frontend/deploy-frontend-docker.sh|ssh -T ${DEV_USER}@${DEV_HOST}
+#  needs:
+#    - release-frontend-docker
+
+deploy:
   stage: deploy
-  image: alpine:3.18
-  script:
-    - apk add openssh-client bash gettext
+  image: docker:24.0.7-alpine3.19
+  environment:
+    name: production/frontend
+#  when: manual
+  before_script:
+    - apk add docker-cli-compose openssh-client bash
     - eval $(ssh-agent -s)
-    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add -
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh
     - export SSH_KNOWN_HOSTS=`ssh-keyscan ${DEV_HOST}`
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
     - ssh ${DEV_USER}@${DEV_HOST} "sudo rm -f -R /tmp${CI_PROJECT_DIR}/frontend; sudo mkdir -p /tmp${CI_PROJECT_DIR}/frontend; sudo chown ${DEV_USER}:${DEV_USER} /tmp${CI_PROJECT_DIR}/frontend -R"
     - scp ./frontend/default.conf ${DEV_USER}@${DEV_HOST}:/tmp${CI_PROJECT_DIR}/frontend/
-#    - scp ./frontend/deploy-frontend-docker.sh ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/
-#    - > 
-#        ssh ${DEV_USER}@${DEV_HOST} 
-#        "chmod +x deploy-frontend-docker.sh; ./deploy-frontend-docker.sh; rm ./deploy-frontend-docker.sh"
-    - envsubst < ./frontend/deploy-frontend-docker.sh|ssh -T ${DEV_USER}@${DEV_HOST}
+    - docker context create remote --description "remote ssh" --docker "host=ssh://${DEV_USER}@${DEV_HOST}"
+  script:
+  #  - echo "VERSION=latest" >> deploy.env
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker context use remote
+    - docker rm -f sausage-frontend || true
+    - docker --context remote compose up frontend -d --pull "always" --force-recreate
+    - docker image prune -f
   needs:
     - release-frontend-docker
-
 
 #deploy-frontend:
 #  stage: deploy
