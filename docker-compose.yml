@@ -27,7 +27,7 @@ services:
   frontend:
     image: ${CI_REGISTRY_IMAGE}/sausage-frontend:latest
     volumes:
-    #  - /tmp/${CI_PROJECT_DIR}/frontend/default.conf:/etc/nginx/conf.d/default.conf
+      - /tmp/${CI_PROJECT_DIR}/frontend/default.conf:/etc/nginx/conf.d/default.conf
       - /var/run/docker.sock:/tmp/docker.sock:ro
     container_name: sausage-frontend
     restart: always
