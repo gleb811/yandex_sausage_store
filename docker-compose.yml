@@ -3,9 +3,10 @@ version: "3.8"
 services:
   backend:
     image: ${CI_REGISTRY_IMAGE}/sausage-backend:latest
-    container_name: sausage-backend
     restart: always
     environment:
+      VIRTUAL_HOST: "backend"
+      VIRTUAL_PORT: "8080"
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
@@ -28,7 +29,8 @@ services:
   frontend:
     image: ${CI_REGISTRY_IMAGE}/sausage-frontend:latest
     volumes:
-      - /tmp/${CI_PROJECT_DIR}/frontend/default.conf:/etc/nginx/conf.d/default.conf
+    #  - /tmp/${CI_PROJECT_DIR}/frontend/default.conf:/etc/nginx/conf.d/default.conf
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     container_name: sausage-frontend
     restart: always
     ports:
