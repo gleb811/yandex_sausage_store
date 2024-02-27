@@ -219,7 +219,8 @@ deploy:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context ls
     - docker context use remote
-    - docker rm -f sausage-backend || true
+  #  - docker rm -f sausage-backend || true
+    - docker rm $(docker ps -qa --filter "name=sausage-store-backend") || true
     - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
     - docker --context remote compose --env-file deploy.env up --scale backend=2 -d --no-recreate
     - docker image prune -f
