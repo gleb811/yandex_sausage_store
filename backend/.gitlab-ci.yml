@@ -222,7 +222,7 @@ deploy:
   #  - docker rm -f sausage-backend || true
     - docker rm -f $(docker ps -qa --filter "name=sausage-store-backend") || true
     - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
-    - docker --context remote compose --env-file deploy.env up --scale backend=2 -d --no-recreate
+    - docker --context remote compose up --scale backend=2 -d --no-recreate
     - docker image prune -f
   needs:
     - release-backend-docker   
