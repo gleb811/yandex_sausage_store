@@ -216,13 +216,14 @@ deploy:
   #  - echo "REPORTS_MONGODB_URI="mongodb://std-024-07:${MONGODB_PASSWORD}@$rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/std-024-07?tls=true"" >> deploy.env
   #  - echo "REPORT_PATH=/var/www-data/htdocs" >> deploy.env
     - echo "SPRING_DATA_MONGODB_URI=mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?ssl=true" >> deploy.env
+    - echo "REPORTS_MONGODB_URI=mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?tls=true&tlsAllowInvalidCertificates=true" >> deploy.env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context ls
     - docker context use remote
   #  - docker rm -f sausage-backend || true
     - docker rm -f $(docker ps -qa --filter "name=sausage-store-backend") || true
     - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
-    - docker --context remote compose up --scale backend=2 -d --no-recreate
+    - docker --context remote compose --env-file deploy.env up --scale backend=2 -d --no-recreate
     - docker image prune -f
   needs:
     - release-backend-docker   
