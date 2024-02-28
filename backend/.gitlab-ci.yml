@@ -258,6 +258,7 @@ deploy:
     - envsubst < ./backend/deploy_green_blue.sh|ssh -T ${DEV_USER}@${DEV_HOST}
   needs:
     - release-backend-docker   
+    
 
 
 
