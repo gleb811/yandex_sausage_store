@@ -7,7 +7,8 @@ RUN wget -O  YandexInternalRootCA.crt https://storage.yandexcloud.net/cloud-cert
     && mvn package -Dversion.application=${VERSION} -Dmaven.test.skip=true -Dspring.flyway.enabled=false
 
 # шаг релиза
-FROM bellsoft/liberica-runtime-container:jre-17-slim-musl
+#FROM bellsoft/liberica-runtime-container:jre-17-slim-musl
+FROM eclipse-temurin:17.0.4.1_1-jre-alpine
 ARG VERSION=${VERSION}
 WORKDIR /app
 COPY --from=builder /usr/src/app/YandexInternalRootCA.crt .
