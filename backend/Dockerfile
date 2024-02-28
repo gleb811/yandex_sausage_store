@@ -23,7 +23,8 @@ RUN keytool -importcert -file YandexInternalRootCA.crt \
     && cp YandexInternalRootCA.crt /home/jaruser/.postgresql/root.crt \
     && chown -R jaruser:jaruser /home/jaruser/.postgresql \
     && chmod 0600 /home/jaruser/.postgresql/root.crt \
-    && rm -rf YandexInternalRootCA.crt 
+    && rm -rf YandexInternalRootCA.crt \
+    && apk --no-cache add curl
     
 COPY --chown=jaruser:jaruser \
      --from=builder /usr/src/app/target/sausage-store-${VERSION}.jar ./sausage-store.jar
