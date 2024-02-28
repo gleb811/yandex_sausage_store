@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     image: ${CI_REGISTRY_IMAGE}/sausage-backend:latest
-#    container_name: sausage-backend
+    container_name: sausage-backend
     restart: always
     environment:
       VIRTUAL_HOST: "sausage-backend"
