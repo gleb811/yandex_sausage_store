@@ -250,6 +250,7 @@ deploy:
     - echo "SPRING_DATASOURCE_PASSWORD=${PSQL_PASSWORD}" >> deploy.env
     - echo "SPRING_DATA_MONGODB_URI=mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?ssl=true" >> deploy.env
     - echo "REPORTS_MONGODB_URI=mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?tls=true&tlsAllowInvalidCertificates=true" >> deploy.env
+    - echo "CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}" >> deploy.env
     - scp  deploy.env ${DEV_USER}@${DEV_HOST}:. 
     - scp  docker-compose.yml ${DEV_USER}@${DEV_HOST}:. 
     - envsubst < ./backend/deploy_green_blue.sh|ssh -T ${DEV_USER}@${DEV_HOST}
