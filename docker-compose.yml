@@ -14,8 +14,8 @@ services:
       SPRING_DATA_MONGODB_URI: ${SPRING_DATA_MONGODB_URI}
       REPORTS_MONGODB_URI: ${REPORTS_MONGODB_URI}
       CI_REGISTRY_IMAGE: ${CI_REGISTRY_IMAGE}
-    expose:
-      - "8080"
+  #  expose:
+  #    - "8080"
     healthcheck:
       test: curl --fail -s http://localhost:8080/actuator/health
       interval: 30s
