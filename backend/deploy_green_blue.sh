@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+#set -xe
 docker --context remote compose --env-file deploy.env up backend-green -d --pull "always" --force-recreate
 #docker --context remote compose --env-file deploy.env up --scale backend-green=2 -d --no-recreate
 #docker --context remote compose --env-file deploy.env up backend-blue -d --pull "always" --force-recreate
