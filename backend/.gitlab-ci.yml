@@ -254,6 +254,7 @@ deploy:
     - docker context use remote
     - docker rm -f $(docker ps -qa --filter "name=sausage-store-backend") || true
 #    - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
+    - chmod +x ./backend/deploy_green_blue.sh
     - ./backend/deploy_green_blue.sh
     - docker --context remote compose --env-file deploy.env up --scale backend=2 -d --no-recreate
     - docker image prune -f
