@@ -5,7 +5,7 @@ docker --context remote compose --env-file deploy.env up backend-green -d --pull
 #docker --context remote compose --env-file deploy.env up backend-blue -d --pull "always" --force-recreate
 docker --context remote compose --env-file deploy.env up --scale backend-green=2 backend-green -d --no-recreate
 #docker --context remote compose --env-file deploy.env up --scale backend-blue=2 backend-blue -d --no-recreate
-a=`docker ps -qa --filter "name=sausage-store-backend-blue")`
+a=`docker ps -qa --filter "name=sausage-store-backend-blue"`
 echo $a
 if [ ${#$(docker ps -qa --filter "name=sausage-store-backend-blue")} != 0 ]
 then 
