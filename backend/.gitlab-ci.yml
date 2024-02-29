@@ -132,6 +132,7 @@ release-backend-docker:
     - spotbugs-sast
     - sonarqube-backend-sast
     
+    
 #deploy-backend:
 #  stage: deploy
 #  environment:
