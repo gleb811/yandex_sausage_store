@@ -253,7 +253,7 @@ deploy:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context ls
     - docker context use remote
-    - docker rm -f $(docker ps -qa --filter "name=sausage-store-backend") || true
+#    - docker rm -f $(docker ps -qa --filter "name=sausage-store-backend") || true
     - chmod +x ./backend/deploy_green_blue.sh
     - ./backend/deploy_green_blue.sh
     - docker image prune -f
