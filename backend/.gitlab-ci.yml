@@ -253,7 +253,8 @@ deploy:
     - docker context ls
     - docker context use remote
     - docker rm -f $(docker ps -qa --filter "name=sausage-store-backend") || true
-    - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
+#    - docker --context remote compose --env-file deploy.env up backend -d --pull "always" --force-recreate
+    - ./backend/deploy_green_blue.sh
     - docker --context remote compose --env-file deploy.env up --scale backend=2 -d --no-recreate
     - docker image prune -f
 #    - echo "REPORTS_MONGODB_URI=mongodb://${PSQL_ADMIN}:${MONGODB_PASSWORD}@rc1d-fmpc8y27lrcif391.mdb.yandexcloud.net:27018/${PSQL_DBNAME}?tls=true&tlsAllowInvalidCertificates=true" >> deploy.env
@@ -265,7 +266,7 @@ deploy:
 #    - envsubst < ./backend/deploy_green_blue.sh|ssh -T ${DEV_USER}@${DEV_HOST}
   needs:
     - release-backend-docker 
-      
+
 
 
 
