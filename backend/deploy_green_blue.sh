@@ -39,7 +39,8 @@ else
       sleep 20s
     done
     docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-green") || true
-    docker --context remote compose --env-file deploy.env up --scale backend-blue=2 backend-blue -d --no-recreate
   fi
+  docker --context remote compose --env-file deploy.env up --scale backend-blue=2 backend-blue -d --no-recreate
+  
 fi
 
