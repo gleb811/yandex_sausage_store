@@ -16,7 +16,6 @@ then
     docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-green") || true
   fi
   docker --context remote compose --env-file deploy.env up backend-green -d --pull "always" --force-recreate 
-  docker --context remote compose --env-file deploy.env up --scale backend-green=2 -d --no-recreate
 # Wait for green become healthy
   green_health_status=`docker ps -qa --filter "name=sausage-store-backend-green" --filter "health=healthy"`
   green_health_status=${#green_health_status}
@@ -28,9 +27,9 @@ then
     sleep 20s
     done
   docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-blue") || true  
+  docker --context remote compose --env-file deploy.env up --scale backend-green=2 -d --no-recreate
 else
   docker --context remote compose --env-file deploy.env up backend-blue -d --pull "always" --force-recreate
-  docker --context remote compose --env-file deploy.env up --scale backend-blue=2 backend-blue -d --no-recreate
   if [ $green_status != 0 ]
 # Wait for blue become healthy
   then
@@ -44,5 +43,6 @@ else
       sleep 20s
     done
     docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-green") || true
+    docker --context remote compose --env-file deploy.env up --scale backend-blue=2 backend-blue -d --no-recreate
   fi
 fi
