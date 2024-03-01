@@ -25,6 +25,7 @@ then
     green_health_status=`docker ps -qa --filter "name=sausage-store-backend-green" --filter "health=healthy"`
     green_health_status=${#green_health_status}
     echo 'Waiting for green become healthy' 
+    sleep 20s
     done
   docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-blue") || true  
 else
@@ -40,6 +41,7 @@ else
       blue_health_status=`docker ps -qa --filter "name=sausage-store-backend-blue" --filter "health=healthy"`
       blue_health_status=${#blue_health_status}
       echo 'Waiting for blue become healthy' 
+      sleep 20s
     done
     docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-green") || true
   fi
