@@ -25,21 +25,21 @@ then
     done
   docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-blue") || true  #Remove blue
 #  docker --context remote compose --env-file deploy.env up --scale backend-green=2 backend-green -d --no-recreate
-else
-  docker --context remote compose --env-file deploy.env up backend-blue -d --pull "always" --force-recreate
-  if [ $green_status != 0 ]
-# Wait for blue become healthy
+else #if green or nothing running
+  docker --context remote compose --env-file deploy.env up backend-blue -d --pull "always" --force-recreate #Start fresh blue vesion
+  if [ $green_status != 0 ] #if green running
   then
+  #Define blue health status
     blue_health_status=`docker ps -qa --filter "name=sausage-store-backend-blue" --filter "health=healthy"`
     blue_health_status=${#blue_health_status}
-    while [ $blue_health_status = 0 ]
+    while [ $blue_health_status = 0 ] #Wait for blue become healthy
     do
       blue_health_status=`docker ps -qa --filter "name=sausage-store-backend-blue" --filter "health=healthy"`
       blue_health_status=${#blue_health_status}
       echo 'Waiting for blue become healthy' 
       sleep 20s
     done
-    docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-green") || true
+    docker rm -f $(docker ps -qa --filter "name=sausage-store-backend-green") || true #Remove green
   fi
 #  docker --context remote compose --env-file deploy.env up --scale backend-blue=2 backend-blue -d --no-recreate
   
