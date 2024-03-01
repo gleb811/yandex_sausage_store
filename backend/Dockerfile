@@ -7,7 +7,8 @@ RUN wget -O  YandexInternalRootCA.crt https://storage.yandexcloud.net/cloud-cert
     && mvn package -Dversion.application=${VERSION} -Dmaven.test.skip=true -Dspring.flyway.enabled=false
 
 # шаг релиза
-FROM bellsoft/liberica-runtime-container:jre-17-slim-musl
+#FROM bellsoft/liberica-runtime-container:jre-17-slim-musl
+FROM eclipse-temurin:17.0.4.1_1-jre-alpine
 ARG VERSION=${VERSION}
 WORKDIR /app
 COPY --from=builder /usr/src/app/YandexInternalRootCA.crt .
@@ -22,7 +23,8 @@ RUN keytool -importcert -file YandexInternalRootCA.crt \
     && cp YandexInternalRootCA.crt /home/jaruser/.postgresql/root.crt \
     && chown -R jaruser:jaruser /home/jaruser/.postgresql \
     && chmod 0600 /home/jaruser/.postgresql/root.crt \
-    && rm -rf YandexInternalRootCA.crt 
+    && rm -rf YandexInternalRootCA.crt \
+    && apk --no-cache add curl
     
 COPY --chown=jaruser:jaruser \
      --from=builder /usr/src/app/target/sausage-store-${VERSION}.jar ./sausage-store.jar
