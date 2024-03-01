@@ -43,4 +43,3 @@ else
 #  docker --context remote compose --env-file deploy.env up --scale backend-blue=2 backend-blue -d --no-recreate
   
 fi
-
