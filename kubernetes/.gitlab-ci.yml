@@ -15,7 +15,6 @@ deploy-k8s:
     - kubectl apply -f ./kubernetes/backend-report
     - kubectl apply -f ./kubernetes/frontend
 
-
   environment:
     name: fedotov-gleb-24.k8s.praktikum-services.tech
     url: https://fedotov-gleb-24.k8s.praktikum-services.tech
