@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 15
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - image: gitlab.praktikum-services.ru:5050/std-024-07/sausage-store/sausage-frontend:latest
+          name: frontend
+          imagePullPolicy:  Always 
+          volumeMounts:
+          - name: nginx-conf
+            mountPath: /etc/nginx/conf.d/                        
+          ports:
+            - name: frontend
+              containerPort: 80
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - frontend
+      imagePullSecrets:
+        - name: docker-config-secret
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: frontend-configmap
