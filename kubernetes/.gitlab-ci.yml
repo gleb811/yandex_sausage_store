@@ -1,0 +1,23 @@
+variables:
+   VERSION: 1.0.${CI_PIPELINE_ID}
+
+stages:
+   - deploy
+
+deploy-k8s:
+  stage: deploy
+  image:
+    name: bitami/kubectl:latest
+    endpoints: ['']
+  script:
+    - export KUBECONFIG=$KUBECONFIG_FILE
+    - kubectl apply -f ./kubernetes/backend
+    - kubectl apply -f ./kubernetes/backend-report
+    - kubectl apply -f ./kubernetes/frontend
+
+
+  environment:
+    name: fedotov-gleb-24.k8s.praktikum-services.tech
+    url: https://fedotov-gleb-24.k8s.praktikum-services.tech
+
+
