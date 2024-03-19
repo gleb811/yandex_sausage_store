@@ -8,7 +8,7 @@ deploy-k8s:
   stage: deploy
   image:
     name: bitami/kubectl:latest
-    entrypoints: ['']
+    entrypoint: ['']
   script:
     - export KUBECONFIG=$KUBECONFIG_FILE
     - kubectl apply -f ./kubernetes/backend
