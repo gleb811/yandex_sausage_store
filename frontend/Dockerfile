@@ -6,9 +6,10 @@ COPY . .
 RUN npm install && npm run build
 RUN sed -i "s/{{VERSION}}/${VERSION}/g" dist/frontend/main.js
 
-#release
-FROM nginxproxy/nginx-proxy:1.3.1-alpine
+
+# Final stage
+FROM nginx:stable-alpine3.17-slim
 WORKDIR /app
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /usr/src/app/dist/frontend /usr/share/nginx/html
-COPY --from=builder /usr/src/app/nginx.tmpl /app/nginx.tmpl
 EXPOSE 80
