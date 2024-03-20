@@ -5,6 +5,11 @@ metadata:
 spec:
   replicas: 1
   revisionHistoryLimit: 12
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      minAvailable: 1
+      maxSurge: 20% 
   selector:
     matchLabels:
       app: backend
